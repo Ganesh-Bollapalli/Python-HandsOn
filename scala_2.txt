@@ -1,0 +1,448 @@
+object Result {
+    def multiply(x:Int)(implicit y:Int) :Int = {
+        return x*y
+    }
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val printWriter = new PrintWriter(sys.env("OUTPUT_PATH"))
+
+        val x = StdIn.readLine.trim.toInt
+        implicit val y:Int=5
+
+        val result = Result.multiply(x)
+
+        printWriter.println(result)
+
+        printWriter.close()
+    }
+}
+
+-----------------------------------------------------------------------------------
+
+import scala.language.implicitConversions
+
+
+object Result {    
+    
+    class CustomString(val s: String) {
+    def isNumeric = s forall Character.isDigit
+    }
+
+    implicit def StrToCustomString(s: String): CustomString =new CustomString(s)
+  
+   def test(var1:String){
+    val output = var1.isNumeric
+    println(output)
+   }    
+}
+object Solution {
+    def main(args: Array[String]) {
+        val test1 = StdIn.readLine
+
+        Result.test(test1)
+    }
+}
+
+
+------------------------------------------------------------------------------------
+
+object Result {
+    class CustomString(val s: String) {
+        // Define method with name findLength to get the length of the string 's'
+        def findLength = s.length
+    }
+    class CustomInt(val number : Int){
+        //Define method with name multiply to perform multiplication of the 'number' by 10
+        def multiply = number*10
+    }
+    
+    // Define your implicit functions here.
+    implicit def func1(s:String) : CustomString =new CustomString(s)              S=>S
+    implicit def func2(number:String) : CustomInt =new CustomInt(number.toInt)    S=>T
+    
+    
+    // Don't modify the test method.
+    def test(var1:String){
+        val o1 = var1.findLength
+        println(o1)
+        val output = var1.multiply
+        println(output)
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val test1 = StdIn.readLine.trim
+        Result.test(test1)
+    }
+}
+
+---------------------------------------------------------------------------------
+
+object Result {
+    def partialFunctionImplementation(input1: Int, input2: Int) {
+        def modNum(input1: Int)(input2: Int) = input1 % input2
+        
+        //Put your code here to create the partial function.
+        def customMod = modNum(_:Int)(input2:Int)
+        
+        val output = customMod(input1)
+        println(output)
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val input1 = StdIn.readLine.trim.toInt
+
+        val input2 = StdIn.readLine.trim.toInt
+
+        Result.partialFunctionImplementation(input1, input2)
+    }
+}
+
+----------------------------------------------------------------------------------
+
+object Result {
+    def uniformLists(input1: Int) {
+        val list= List.fill(input1)("TCS")
+        println(list)
+
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val input1 = StdIn.readLine.trim.toInt
+
+        Result.uniformLists(input1)
+    }
+}
+
+----------------------------------------------------------------------------------
+
+object Result {
+
+    def forComprehensions(input1: Int) {
+        // Put your code here
+        val list =List.range(1, input1+1)
+        val newlist = for(i <- list; if i%2==0)yield i
+        for(i <- newlist){println(i)}
+        
+        val stringList :List[String] = List("Scala", "Ruby", "Python", "C#", "Java", "Groovy", "JavaScript", "PHP", "Haskell")
+        val res = for(i <- stringList; if (i startsWith "P"))yield i
+        for(i <- res){println(i)}
+            
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val input1 = StdIn.readLine.trim.toInt
+
+        Result.forComprehensions(input1)
+    }
+}
+
+---------------------------------------------------------------------------------
+
+object Result {  
+    def OptionsUsage(countryName: String) {
+        val capitals = Map("France" -> "Paris", "Japan" -> "Tokyo", "India" -> "New Delhi", "Russia" -> "Moscow", "Bangladesh" -> "Dhaka", "Bhutan" -> "Thimphu","Canada" -> "Ottawa", "Chile"->"Santiago","Costa Rica" -> "San Jose", "Denmark"->"Copenhagen","Egypt"->"Cario","Greece" -> "Athens", "Hungary"->"Budapest")
+                       def show(x : Option[String])=x match{
+                           case Some(s) => s
+                           case None => "invalid"
+                       }   
+                       
+                       println(countryName+" : "+show(capitals.get(countryName)))
+                       /*for(i <- capitals.keys)
+                       {
+                         println(i+" : "+show(capitals.get(i)))  
+                       }*/
+    
+ 
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val countryName = StdIn.readLine
+
+        Result.OptionsUsage(countryName)
+    }
+}
+
+
+--------------------------------------------------------------------------------------
+
+object Result {
+
+    def CurryFunction(input1: Int, input2: Int) {
+        def factorial(n:Int):Int={
+            if(n==0) return 1
+            else return n*factorial(n-1)
+        } 
+        
+        def add(input1 :Int)(input2 :Int){
+            val res1 = factorial(input1)
+            val res2 = factorial(input2)
+            val sum = res1+res2
+            println(sum)           
+        }
+        def customAdd=add(input1:Int)(_:Int)
+        
+        //val customAdd = add(input1)
+        customAdd(input2)
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val input1 = StdIn.readLine.trim.toInt
+
+        val input2 = StdIn.readLine.trim.toInt
+
+        Result.CurryFunction(input1, input2)
+    }
+}
+
+or
+
+object Result {
+
+object Solution {
+    def main(args: Array[String]) {
+        
+    def CurryFunction(input1: Int, input2: Int) {
+        def factorial(n:Int):Int={
+            if(n==0) return 1
+            else return n*factorial(n-1)
+        } 
+        
+        def add(input1 :Int)(input2 :Int): Int ={
+            return factorial(input1) + factorial(input2)
+        }
+        val customAdd = add(input1)(_)
+        println(customAdd(input2))
+    }
+
+}
+val input1 = StdIn.readLine.trim.toInt
+
+        val input2 = StdIn.readLine.trim.toInt
+
+        Result.CurryFunction(input1, input2)
+    }
+}
+
+-----------------------------------------------------------------------------------------
+
+import scala.annotation.tailrec
+object Result {
+      def factorial(n: Int) =
+    {  
+        def fact(i:Int, acc:Int):Int={
+            if(i<=1) return acc
+            else fact(i-1, i*acc)
+        }
+        val res=fact(n, 1)
+        println(res)
+    }  
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val input1 = StdIn.readLine.trim.toInt
+
+        Result.factorial(input1)
+    }
+}
+
+----------------------------------------------------------------------------------------
+
+object Result {
+
+
+    def Collections() {
+        val country_list1 = List("Denmark","Sweden","France")
+        val country_list2 = List("India","Sri Lanka", "Thailand")
+        // Put your code here
+        val list1 = List.concat(country_list1, country_list2)
+        println(list1)
+        val list2 = country_list2:::country_list1
+        println(list2)
+        println(list2.reverse)
+
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        Result.Collections()
+    }
+}
+
+-------------------------------------------------------------------------------------------
+
+object Result {
+
+    def implicitVariables(input1: Int) {
+        val list=List.range(1, input1+1)
+        implicit val b :Int = 5
+        def add(a:Int)(implicit b:Int) :Int = a+b
+        val res=for (i <- list)yield add(i)
+        for(i <- res){println(i)}
+
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val input1 = StdIn.readLine.trim.toInt
+        Result.implicitVariables(input1)
+    }
+}
+
+or
+
+object Result {
+
+    def implicitVariables(input1: Int) {
+        val list=List.range(1, input1+1)
+        implicit val b :Int = 5
+        def add(a:Int)(implicit b:Int) = println(a+b)
+        for (i <- list)yield add(i)
+
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val input1 = StdIn.readLine.trim.toInt
+        Result.implicitVariables(input1)
+    }
+}
+
+------------------------------------------------------------------------------------------------
+
+object Result {
+
+    def findEven(input1: Int) {
+       val numberList :List[Int]=(1 to input1).flatMap((x:Int)=>List(x)).toList
+        def findevent (x:Int):Option[Boolean] =
+        {
+        if (x%2==0)
+        Some(true)
+        else
+        None
+        }
+       for(i <- numberList)
+       {
+           def apply(x:Int)=x match
+           {
+               case i if i<=0   => println("Negative/Zero")
+               case i if i%2==0 => println(s"$x is even.")
+               case _           => println(s"$x is odd.")
+           }
+          apply(i) 
+       }
+}
+}
+
+
+object Solution {
+    def main(args: Array[String]) {
+        val input1 = StdIn.readLine.trim.toInt
+
+        Result.findEven(input1)
+    }
+}
+
+
+----------------------------------------------------------------------------------------------
+
+object Result {
+
+    def forComprehensions(var1: Int) {
+        // Put your code here
+        for(i <- 1 to var1){
+        printf("%d",i)
+        }
+        // Put your code here
+        println()
+        for(i <- 1 until var1){
+        printf("%d",i)
+        }
+     
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val var1 = StdIn.readLine.trim.toInt
+
+        Result.forComprehensions(var1)
+    }
+}
+
+--------------------------------------------------------------------------------------------------
+
+object Result {
+  
+  // Define your show function here 
+  def show(s :Option[String])= s match{
+      case Some(s) => s
+      case _       => "?"
+  }
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val capitals = Map("France" -> "Paris", "Japan" -> "Tokyo")
+        println("Capital of Japan : " + Result.show(capitals.get( "Japan")) )
+        println("Capital of India : " + Result.show(capitals.get( "India")) )
+        
+    }
+}
+
+
+----------------------------------------------------------------------------------------------
+
+object Result {
+
+
+    def GCDImplementation(input1: Int, input2: Int) {
+        def gcd(a:Int, b:Int):Int={
+            if(b==0) a
+            else gcd(b, a%b)   
+        }
+        val res=gcd(input1, input2)
+        println(res)
+        
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val input1 = StdIn.readLine.trim.toInt
+
+        val input2 = StdIn.readLine.trim.toInt
+
+        Result.GCDImplementation(input1, input2)
+    }
+}
+
+---------------------------------------------------------------------------------------------------

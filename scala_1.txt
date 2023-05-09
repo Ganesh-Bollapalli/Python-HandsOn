@@ -1,0 +1,498 @@
+import java.io._
+import java.math._
+import java.security._
+import java.text._
+import java.util._
+import java.util.concurrent._
+import java.util.function._
+import java.util.regex._
+import java.util.stream._
+import scala.collection.immutable._
+import scala.collection.mutable._
+import scala.collection.concurrent._
+import scala.concurrent._
+import scala.io._
+import scala.math._
+import scala.sys._
+import scala.util.matching._
+import scala.reflect._
+
+
+
+// Put your code here
+object HelloWorld {
+    def main() = {
+        println("Hello World")
+    }
+}
+object Solution {
+    def main(args: Array[String]) {
+        HelloWorld.main()
+    }
+}
+
+
+--------------------------------------------------------------------
+
+object Result {
+    def flatMapUsage(var1: Int) {
+        val numberList=List.range(1, var1+1)
+        val listGenerator=numberList.map(x=>numberList.take(x))
+        val resultList=listGenerator.flatMap(x=>x.toList)
+        println(resultList)
+        println(resultList.length)
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val var1 = StdIn.readLine.trim.toInt
+
+        Result.flatMapUsage(var1)
+    }
+}
+
+---------------------------------------------------------------------
+
+class Rectangle(var l:Int, var b:Int){
+    var length : Int = l
+    var breadth : Int = b
+    def area() = {
+        var AREA=breadth*length
+        println(AREA)
+    }
+    def perimeter() = {
+        var inter = length+breadth
+        var PERIMETER=2*inter
+        println(PERIMETER)
+    }
+    
+}
+object Solution {
+    def main(args: Array[String]) {
+        val length = StdIn.readLine.trim.toInt
+
+        val breadth = StdIn.readLine.trim.toInt
+
+        // Result.Rectangle(length, breadth)
+        var rect = new Rectangle(length, breadth);
+        rect.area();
+        rect.perimeter();
+    }
+}
+
+--------------------------------------------------------------------------
+
+object Result{
+    trait ArithmeticOpertaions{
+        // Put your code here
+        var x : Int
+        var y : Int
+        def add : Int
+        def subtract : Int
+        def multiply : Int
+        def divide : Int
+    }
+    
+    class Variables(a:Int, b:Int) extends ArithmeticOpertaions{
+        // Put your code here
+        var x :Int=a
+        var y :Int=b
+        def add() : Int={(x+y)}
+        def subtract() : Int=x-y
+        def multiply() : Int={x*y}
+        def divide() : Int=x/y
+    }
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val printWriter = new PrintWriter(sys.env("OUTPUT_PATH"))
+
+        val op1 = StdIn.readLine.trim.toInt
+
+        val op2 = StdIn.readLine.trim.toInt
+
+        // val result = Result.variable(op1, op2)
+        var variable = new Result.Variables(op1, op2)
+        
+        // printWriter.println(result)
+        printWriter.println(variable.add)
+        printWriter.println(variable.subtract)
+        printWriter.println(variable.multiply)
+        printWriter.println(variable.divide)
+        printWriter.close()
+    }
+}
+
+-------------------------------------------------------------------------------------
+
+object Result {
+    def ListHigherOrder(input: Int) {
+     // Put your code here
+     val intList = List.range(1, input+1)
+     //println(intList)
+     def factorial(n:Int):Int={
+         if(n==0)
+         return 1
+         else
+         return n*factorial(n-1)
+     }
+     def myHigherOrderFunction(factorial : Int => Int, intList :List[Int])=
+     {
+         for(i <- intList)
+         {
+         var result=factorial(i)
+         println(result)
+         }
+     }
+     myHigherOrderFunction(factorial, intList)
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val op1 = StdIn.readLine.trim.toInt
+
+        Result.ListHigherOrder(op1)
+    }
+}
+
+
+----------------------------------------------------------------------------------------
+Tail Recursive:
+
+object Demo {
+   def main(args: Array[String]) {
+      println( factorial(0) )
+      println( factorial(1) )
+      println( factorial(2) )
+      println( factorial(3) )
+   }
+
+   def factorial(i: Int): Int = {
+      def fact(i: Int, accumulator: Int): Int = {
+         if (i <= 1)
+            accumulator
+         else
+            fact(i - 1, i * accumulator)
+      }
+      fact(i, 1)
+   }
+}
+
+----------------------------------------------------------------------------------------
+
+Scala supports first-class functions, which means functions can be expressed in function literal syntax, i.e., (x: Int) => x + 1, 
+and that functions can be represented by objects, which are called function values.
+
+Try the following expression, it creates a successor function for integers −
+
+var inc = (x:Int) => x+1
+Variable inc is now a function that can be used the usual way −
+
+var x = inc(7)-1
+It is also possible to define functions with multiple parameters as follows −
+
+var mul = (x: Int, y: Int) => x*y
+Variable mul is now a function that can be used the usual way −
+
+println(mul(3, 4))
+
+-----------------------------------------------------------------------------------
+
+object Result {
+
+    /*
+     * Complete the 'mapHigherOrder' function below.
+     *
+     * The function accepts INTEGER_ARRAY args as parameter.
+     */
+
+    def mapHigherOrder(args: Array[Int]) {
+    // Put your code here
+    val intList: List[Int] = args.toList
+
+    def isPerfectNumber(input: Int) :String  = {
+    // Put your code here
+    var sum: Int = 0
+    for (i <- 1 to (input -1))
+    {
+      val rem = input % i
+      if (rem == 0){sum = sum + i}
+    }
+    if (sum == input) 
+    {
+      val res: String = "true"
+      return res
+    }
+    else {
+    val res: String = "false"
+    return res}
+    }
+
+def myHigherOrderFunction(argFn: Int => String, argVal:List[Int]): List[String] = 
+        { 
+		// Put your code here
+        val res = argVal.map(argFn)
+        return res
+                     
+         }
+
+println(myHigherOrderFunction(isPerfectNumber, intList))
+
+} 
+} 
+
+
+object Solution {
+    def main(args: Array[String]) {
+        val argsCount = StdIn.readLine.trim.toInt
+
+        val args = Array.ofDim[Int](argsCount)
+
+        for (i <- 0 until argsCount) {
+            val argsItem = StdIn.readLine.trim.toInt
+            args(i) = argsItem
+        }
+
+        Result.mapHigherOrder(args)
+    }
+}
+
+
+------------------------------------------------------------------------------------------
+
+ object Result{
+       def add(xc :Int, yc:Int) :Int={
+           var x :Int =xc
+           var y :Int =yc
+           return x+y
+       } 
+    }
+
+
+object Solution {
+    def main(args: Array[String]) {
+        val printWriter = new PrintWriter(sys.env("OUTPUT_PATH"))
+
+        val op1 = StdIn.readLine.trim.toInt
+
+        val op2 = StdIn.readLine.trim.toInt
+
+        val result = Result.add(op1, op2)
+
+        printWriter.println(result)
+
+        printWriter.close()
+    }
+}
+
+
+------------------------------------------------------------------------------------------
+
+object Result{
+    var multiply = (x:Int, y:Int) => x*y
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val printWriter = new PrintWriter(sys.env("OUTPUT_PATH"))
+
+        val op1 = StdIn.readLine.trim.toInt
+
+        val op2 = StdIn.readLine.trim.toInt
+
+        val result = Result.multiply(op1, op2)
+
+        printWriter.println(result)
+
+        printWriter.close()
+    }
+}
+
+--------------------------------------------------------------------------------------------
+
+object Result {
+
+    def PatternMatching(var1: Int) = var1 match {
+          case 0 if var1<=0   => println("Negative/Zero")
+          case 2 if var1%2==0 => println("Even number is given")
+          case 3 if var1%2!=0 => println("Odd number is given")
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val var1 = StdIn.readLine.trim.toInt
+
+        Result.PatternMatching(var1)
+    }
+}
+
+or
+
+object Result {
+
+    def PatternMatching(var1: Int) = var1%2 match {
+          //case 0  => println("Negative/Zero")
+          case 0  => println("Even number is given")
+          case 1  => println("Odd number is given")
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val var1 = StdIn.readLine.trim.toInt
+
+        Result.PatternMatching(var1)
+    }
+}
+
+or
+
+CORRECT:
+
+object Result {
+
+    def PatternMatching(var1: Int) = var1 match {
+          case i if i <= 0     => println("Negative/Zero is input")
+          case i if i % 2 == 0 => println("Even number is given")
+          case _               => println("Odd number is given")
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val var1 = StdIn.readLine.trim.toInt
+
+        Result.PatternMatching(var1)
+    }
+}
+
+
+-------------------------------------------------------------------------------------------------
+
+
+object Result {
+
+    def ListFilter(var1: Int) {
+       // Put your code here
+       val list = List.range(0, var1)
+       println(list)
+       def Filter(k:List[Int])={
+           for(i <- k)
+           {
+               if(i%2 == 0)
+               {
+                   println(i)
+                }
+           }
+       }
+       Filter(list)
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val var1 = StdIn.readLine.trim.toInt
+
+        Result.ListFilter(var1)
+    }
+}
+
+or
+CORRECT
+object Result {
+
+    def ListFilter(var1: Int) {
+       // Put your code here
+       val list = List.range(0, var1)
+       println(list)
+       val evenlist = list.filter(_%2==0)
+       println(evenlist)
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        val var1 = StdIn.readLine.trim.toInt
+
+        Result.ListFilter(var1)
+    }
+}
+
+
+-------------------------------------------------------------------------------------
+
+object Result {
+    // Create a case class book with name(string) and author(string)
+    case class book(Name: String, Author: String)
+    
+    def describe() {
+        //Create the two case class objects as described in the statement
+        //Print the details here
+        val obj1 = new book("Scala for the Impatient", "Cay S. Horstmann")
+        val obj2 = new book("Scala Cookbook", "Alvin Alexander")
+        for(i <- List(obj1, obj2))
+        {
+            i match {
+                case book("Scala for the Impatient", "Cay S. Horstmann") => println(s"Author of this ${obj1.Name} is ${obj1.Author}")
+                case book("Scala Cookbook", "Alvin Alexander") => println(s"Author of this ${obj2.Name} is ${obj2.Author}")
+            }
+        }
+      
+
+    }
+
+}
+
+object Solution {
+    def main(args: Array[String]) {
+        Result.describe()
+    }
+}
+
+
+-------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
