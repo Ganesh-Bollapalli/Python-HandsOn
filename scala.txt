@@ -1,0 +1,263 @@
+
+val l = List(3,4,5,2,1)
+	
+	/* def reverseList(k: List[Int]): List[Int]= k match {
+	  case Nil => Nil
+	  case head :: tail => reverseList(tail) :+ head
+	}
+	println(reverseList(l)) */
+	
+	val o = l.foldLeft(List.empty[Int])((acc, x) =>
+	   x :: acc
+	  )
+	 println(o)
+	 
+	 
+	 def reverseList(k: List[Int]): List[Int] = {
+  @annotation.tailrec
+  def helper(remaining: List[Int], acc: List[Int]): List[Int] = remaining match {
+    case Nil => acc
+    case head :: tail => helper(tail, head :: acc)
+  }
+
+  helper(k, Nil)
+}
+println(reverseList(l))
+
+------------------------------------------------------------------------------------------
+
+val l = List(1,1,2,2,3,4,5,5)
+	val o = l.foldLeft(List.empty[Int]){ case (acc, x)=>
+	if(acc.contains(x)) acc else acc:+x
+	}
+	println(o)
+	
+	def removedup(l:List[Int]):List[Int]={
+	  def helper(rem:List[Int], acc:List[Int]):List[Int]=rem match{
+	    case Nil => acc 
+	    case head :: tail => if (acc.contains(head)) helper(tail, acc)
+      else helper(tail, head :: acc)
+	  }
+	  helper(l, Nil)
+	}
+	println(removedup(l).reverse)
+
+----------------------------------------------------------------------------------------------
+
+val l = List(1,2,3,4,5)
+	println(l.foldLeft(0)(_+_))
+	println(l.reduce(_+_))
+	
+	def summ(l:List[Int]):Int= l match {
+	  case Nil => 0 
+	  case head :: Nil => head 
+	  case head :: tail => head + summ(tail)
+	}
+	println(summ(l))
+	
+	
+	def ts(l:List[Int]):Int= {
+	  def helper(rem:List[Int], acc:Int):Int=rem match{
+	    case Nil => acc 
+	    case head :: tail => helper(tail, head+acc)
+	  }
+	  helper(l, 0)
+	}
+	 println(ts(l))
+
+-------------------------------------------------------------------------------------------------
+
+def fibanocci(n:Int):List[Int]={
+	  @annotation.tailrec
+	  def helper(a:Int, b:Int, n:Int, acc:List[Int]):List[Int]={
+	    if(n==0) acc.reverse
+	    else helper(b, a+b, n-1, a :: acc)
+	  }
+	  helper(0, 1, n, Nil)
+	}
+	println(fibanocci(4))
+	}
+
+
+-----------------------------------------------------------------------------------------------
+
+val l = List(9,10, 12, 6)
+	println(l.foldLeft(0){
+	  case (acc, x) => if(x>
+) x else acc
+	})
+	
+	
+	println(l.reduce((a,b)=>if(a>b) a else b))
+	
+	def maxele(l:List[Int]):Int= l match {
+	  case Nil => 0 
+	  case head::Nil => head 
+	  case head::tail => Math.max(head, maxele(tail))
+	}
+	println(maxele(l))
+	
+
+------------------------------------------------------------------------------------------------
+
+val l = List(1,2,3,4,4,5,6,4)
+	
+	def occ(l:List[Int], e:Int):Int= l match {
+	  case Nil => 0
+	  case h::t => (if(h==e) 1 else 0) + occ(t, e)
+	}
+	println(occ(l, 4))
+	}
+	
+	val countOf4 = l.foldLeft(0)(
+(cnt, x) => if (x == 4) cnt + 1 else cnt
+)
+println(countOf4)
+
+----------------------------------------------------------------------------------------------
+
+def rec(l: List[Int]): List[Int] = {
+  def helper(rem: List[Int], acc: List[Int]): List[Int] = rem match {
+    case Nil => acc.reverse
+    case head :: tail =>
+      if (acc.isEmpty || acc.head != head) helper(tail, head :: acc)
+      else helper(tail, acc)
+  }
+  helper(l, Nil)
+}
+val l = List(1, 1, 2, 2, 2, 3, 3, 1)
+
+println(rec(l)) 
+
+
+  val result = l.foldLeft(List.empty[Int]) {
+  case (acc, x) =>
+    if (acc.isEmpty || acc.last != x) acc :+ x
+    else acc
+}
+
+println(result)
+
+
+val l = List(1, 1, 2, 2, 2, 3, 3, 1)
+	
+	def rm(l:List[Int]):List[Int]= l match {
+	  case Nil => Nil 
+	  case h :: Nil => List(h) 
+	  case h1::h2::t => if(h1==h2) rm(h2::t)
+	  else h2::rm(t)
+	}
+	println(rm(l))
+
+
+------------------------------------------------------------------------------------------------------
+
+	
+	def maxx(l:List[Int]):Int={
+	  def helper(rem:List[Int], acc:Int):Int= rem match{
+	    case Nil => acc 
+	    case head::Nil => head 
+	    case h::t => if(h>acc) helper(t, h) else helper(t, acc) 
+	  }
+	  helper(l, 0)
+	}
+	println(maxx(l))
+
+---------------------------------------------------------------------------------------------------
+
+
+val l = List(1,2,6, 3,4,5)
+	
+	def sortL(l:List[Int]):Boolean= l match {
+	  case Nil => true
+	  case head::Nil => true 
+	  case x::y::t => x<=y && sortL(t)
+	}
+	println(sortL(l))
+	
+
+-------------------------------------------------------------------------------------------------
+
+val s = "madamjm"
+	
+	def ispal(s:String):Boolean={
+	  if(s.length<=1) true 
+	  else if(s.head!=s.last) false 
+	  else ispal(s.tail.init)
+	}
+	println(ispal(s))
+
+-------------------------------------------------------------------------------------------------
+
+val l : List[List[Int]] = List(List(1,2,3), List(4,5,6))
+	println(l.flatten)
+	println(l.flatMap(x=>x.toList))
+	
+	println(l.foldLeft(List.empty[Int]){
+	  case (acc, x) => x++acc
+	}
+	)
+	
+	def rev(l:List[List[Int]]):List[Int]={
+	  def helper(rem:List[List[Int]], acc:List[Int]):List[Int]=rem match{
+	    case Nil => acc
+	    case h::t => helper(t, acc++h)
+	  }
+	  helper(l, Nil)
+	}
+	println(rev(l))
+
+-----------------------------------------------------------------------------------------------------
+
+println(l.groupBy(identity).mapValues(_.size).toMap)
+
+-----------------------------------------------------------------------------------------------------
+
+def nele(l: List[Int], n: Int): Int = l match {
+  case Nil => throw new NoSuchElementException("Index out of bounds")
+  case h :: t => 
+    if (n == 0) h 
+    else nele(t, n - 1)
+}
+
+val l = List(10, 20, 30, 40, 50)
+println(nele(l, 4))  
+
+----------------------------------------------------------------------------------------------------
+
+val l = List(1,2,3)
+  
+  def lastele(l:List[Int]):Int=l match{
+    case h :: Nil => h 
+    case h :: t => lastele(t)
+  }
+  println(lastele(l))
+
+-----------------------------------------------------------------------------------------------------
+
+val l = List(1,2,3,4,5,4, 6)
+  
+  def rm(l:List[Int], e:Int):List[Int]=l match{
+    case Nil => Nil
+    case h::t => if(h==e) rm(t, e)
+    else h::rm(t, e)
+  }
+  println(rm(l, 4))
+  
+  
+  def rm1(l:List[Int], e:Int):List[Int]={
+    def helper(rem:List[Int], e:Int, acc:List[Int]):List[Int]= rem match{
+      case Nil => acc
+      case h::t => if(h==e) helper(t, e, acc)
+    else helper(t, e, acc:+h)
+    }
+    helper(l, e , Nil)
+  }
+  println(rm1(l, 4))
+  
+  println(l.foldLeft(List.empty[Int]){
+    case (acc, x) => if(x==4) acc else acc:+x
+  }
+    )
+
+-------------------------------------------------------------------------------------------------------
