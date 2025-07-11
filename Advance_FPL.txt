@@ -24,6 +24,23 @@ val l = List(3,4,5,2,1)
 }
 println(reverseList(l))
 
+/* For tail recursion:
+- Helper function
+- Last line of helper function will be just helper function call without previous state
+- Helper function should be with acc (which is our output)
+- Mention same type(acc type) as return type of helper function also, and inside helper function retruning will be either acc or our helper function call again)
+
+For recursion:
+- No helper function
+- Return type will be expected output return type
+- Return of cases or inside function, should be either our expected output datatype value or recursion call with previous state values
+
+For FoldLeft:
+- acc (Initial Variable, which hold our output)
+- for more than 1 expression use { and case
+- for 1 expression use ( and case optional
+- return cases or inside function should be our acc, not other things
+*/
 ------------------------------------------------------------------------------------------
 
 val l = List(1,1,2,2,3,4,5,5)
